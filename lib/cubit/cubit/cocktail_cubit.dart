@@ -9,13 +9,23 @@ class CocktailCubit extends Cubit<CocktailState> {
   CocktailCubit({required this.data}) : super(CocktailInitial());
 
   final DataService data;
+  int page = 1;
 
   void getData() async {
-    final List<CocktailModel> cocktails;
-    try {
-      emit(LoadingStates());
-      cocktails = await data.getList();
-      emit(LoadedStates(cocktails));
-    } catch (e) {}
+    if (state is LoadingStates) return;
+    final currentState = state;
+    var oldList = <CocktailModel>[];
+    if (currentState is LoadedStates) {
+      oldList = currentState.cocktails;
+    }
+    emit(LoadingStates(oldList, isFirstFetch: page == 1));
+    final fetchData = await data.getList(page);
+
+    page++;
+    final cocktails = (state as LoadingStates).oldList;
+
+    cocktails.addAll(fetchData);
+
+    emit(LoadedStates(cocktails));
   }
 }
