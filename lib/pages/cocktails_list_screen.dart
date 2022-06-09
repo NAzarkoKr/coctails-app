@@ -59,9 +59,12 @@ class _CocktailsListScreenState extends State<CocktailsListScreen> {
                                 DetailsScreen(coctail: coctails[index])));
                       },
                       child: coctails[index].alcoholic == "Alcoholic"
-                          ? _bannerWrapper(
-                              CustomCard(cocktail: coctails[index]))
-                          : CustomCard(cocktail: coctails[index]));
+                          ? _bannerWrapper(CustomCard(
+                              cocktail: coctails[index],
+                              index: index,
+                            ))
+                          : CustomCard(
+                              cocktail: coctails[index], index: index));
                 } else {
                   Timer(const Duration(microseconds: 30), () {
                     scrollController

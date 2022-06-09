@@ -3,8 +3,10 @@ import 'package:cocktails/widgets/large_text.dart';
 import 'package:flutter/material.dart';
 
 class CustomCard extends StatelessWidget {
+  final int index;
   final CocktailModel cocktail;
-  const CustomCard({Key? key, required this.cocktail}) : super(key: key);
+  const CustomCard({Key? key, required this.cocktail, required this.index})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +32,7 @@ class CustomCard extends StatelessWidget {
         child: Column(
           children: <Widget>[
             LargeText(
-              text: cocktail.category,
+              text: cocktail.category + index.toString(),
               size: 30,
             ),
             LargeText(
